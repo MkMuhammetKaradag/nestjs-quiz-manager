@@ -4,6 +4,7 @@ import { User, UserSchema } from 'src/schemas/user.schema';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import * as bcrypt from 'bcrypt';
+import { JwtModule } from '@nestjs/jwt';
 @Module({
   imports: [
     MongooseModule.forFeatureAsync([
@@ -24,6 +25,10 @@ import * as bcrypt from 'bcrypt';
         },
       },
     ]),
+    JwtModule.register({
+      secret: 'secret',
+      signOptions: { expiresIn: '1d' },
+    }),
   ],
   controllers: [UserController],
   providers: [UserService],
